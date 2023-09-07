@@ -1,0 +1,1 @@
+docker 的 macvlan bridge 模式，哪怕宿主机和容器处于同一个网络段，也是不能直接通信的，需要在 lan 口中，新建一个 macvlan 的虚拟接口

@@ -24,6 +24,10 @@ ip addr add $relay_ip dev macvlan_host
 ip link set macvlan_host up
 ip route add $container_ip dev macvlan_host
 
+# 设置宿主机出口网络
+ip route del default
+ip route add default via $container_ip dev macvlan_host
+
 # Docker安装运行
 docker network create -d macvlan --subnet=$gateway_ip/24 --gateway=$gateway_ip -o parent=$host_interface macvlan
 docker run --restart=always --name=shellclash_docker --network=macvlan --ip=$container_ip --cap-add=NET_ADMIN -d echvoyager/shellclash_docker

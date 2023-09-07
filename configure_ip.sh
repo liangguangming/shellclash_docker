@@ -7,5 +7,7 @@ ip link add macvlan_host link $host_interface type macvlan mode bridge
 ip addr add $relay_ip dev macvlan_host
 ip link set macvlan_host up
 ip route add $container_ip dev macvlan_host
+ip route del default
+ip route add default via $container_ip dev macvlan_host
 
 docker container restart shellclash_docker
